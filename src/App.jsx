@@ -1,23 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
+import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import "./App.css";
 import AddTask from "./components/AddTask";
+import TaskDetails from "./components/TaskDetails";
 
 const App = () => {
-    const [tasks, setTasks] = useState([
-        {
-            id: "1",
-            title: "Estudar Programacao",
-            completed: false,
-        },
-        {
-            id: "2",
-            title: "Ler livros",
-            completed: true,
-        },
-    ]);
+    const [tasks, setTasks] = useState([]);
 
     const handleTaskClick = (taskId) => {
         const newTasks = tasks.map((task) => {
@@ -42,13 +35,33 @@ const App = () => {
         setTasks(newTasks);
     };
 
+    const handerleTaskDelletion = (taskId) => {
+        const newTasks = tasks.filter((task) => task.id !== taskId);
+
+        setTasks(newTasks);
+    };
+
     return (
-        <>
+        <Router>
             <div className="container">
-                <AddTask handleTaskAddition={handleTaskAddition} />
-                <Tasks tasks={tasks} handleTaskClick={handleTaskClick} />
+                <Header />
+                <Route
+                    path="/"
+                    exact
+                    render={() => (
+                        <>
+                            <AddTask handleTaskAddition={handleTaskAddition} />
+                            <Tasks
+                                tasks={tasks}
+                                handleTaskClick={handleTaskClick}
+                                handerleTaskDelletion={handerleTaskDelletion}
+                            />
+                        </>
+                    )}
+                />
+                <Route path="/:taskTitle" exact component={TaskDetails} />
             </div>
-        </>
+        </Router>
     );
 };
 

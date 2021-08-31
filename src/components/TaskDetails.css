@@ -1,0 +1,19 @@
+.task-details-container {
+    background-color: rgb(124, 122, 122);
+    margin: 15px 0;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    color: rgb(228, 203, 203);
+    border-radius: 5px;
+}
+
+.task-details-container h2 {
+    margin-bottom: 5px;
+    color: rgb(255, 0, 140);
+}
+
+.back-button-container {
+    width: 30%;
+    margin-top: 10px;
+}
